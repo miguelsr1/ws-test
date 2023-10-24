@@ -1,7 +1,4 @@
-package sv.com.jsoft.ws.efact.model.dto;
-
-import lombok.Builder;
-import lombok.Data;
+package sv.com.jsoft.ws.test.model.dto;
 
 public class ResponseDto {
     private Integer val;

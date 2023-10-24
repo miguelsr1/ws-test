@@ -1,13 +1,14 @@
-package sv.com.jsoft.ws.efact.rest;
+package sv.com.jsoft.ws.test.rest;
 
 import io.quarkus.logging.Log;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.exception.ConstraintViolationException;
-import sv.com.jsoft.ws.efact.model.TipoUnidadMedida;
-import sv.com.jsoft.ws.efact.model.dto.ResponseDto;
+import sv.com.jsoft.ws.test.model.TipoUnidadMedida;
+import sv.com.jsoft.ws.test.model.dto.ResponseDto;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class TipoUnidadResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "OPERADOR"})
     public List<TipoUnidadMedida> findAll() {
         return TipoUnidadMedida.listAll();
     }
@@ -22,6 +24,7 @@ public class TipoUnidadResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("ADMIN")
     public Response save(TipoUnidadMedida tipoUnidad){
         ResponseDto responseDto = new ResponseDto();
         try{
@@ -40,6 +43,7 @@ public class TipoUnidadResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("ADMIN")
     public Response update(@PathParam("id") Integer id, TipoUnidadMedida tipoUnidad){
         ResponseDto responseDto = new ResponseDto();
         try{

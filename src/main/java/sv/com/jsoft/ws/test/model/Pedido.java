@@ -1,6 +1,5 @@
-package sv.com.jsoft.ws.efact.model;
+package sv.com.jsoft.ws.test.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

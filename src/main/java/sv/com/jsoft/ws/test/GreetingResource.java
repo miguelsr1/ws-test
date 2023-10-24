@@ -1,12 +1,13 @@
-package sv.com.jsoft.ws.efact;
+package sv.com.jsoft.ws.test;
 
 import io.quarkus.logging.Log;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.primefaces.model.rest.AutoCompleteSuggestion;
 import org.primefaces.model.rest.AutoCompleteSuggestionResponse;
-import sv.com.jsoft.ws.efact.model.Cliente;
-import sv.com.jsoft.ws.efact.model.Producto;
+import sv.com.jsoft.ws.test.model.Cliente;
+import sv.com.jsoft.ws.test.model.Producto;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class GreetingResource {
 
     @GET
     @Path("/all")
+    @RolesAllowed({"ADMIN","OPERADOR"})
     public List<Producto> list() {
         return Producto.listAll();
     }
@@ -31,6 +33,7 @@ public class GreetingResource {
 
     @GET
     @Path("/autocomplete/producto/")
+    @RolesAllowed({"ADMIN","OPERADOR"})
     @Produces({MediaType.APPLICATION_JSON})
     public AutoCompleteSuggestionResponse autocomplete(@QueryParam("query") String query) {
         Log.info("ok");
@@ -45,6 +48,7 @@ public class GreetingResource {
     @GET
     @Path("/autocomplete/cliente/")
     @Produces({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"ADMIN","OPERADOR"})
     public AutoCompleteSuggestionResponse autocompleteCliente(@QueryParam("query") String query) {
         Log.info("ok");
         String queryLowerCase = query.toLowerCase();
@@ -61,6 +65,7 @@ public class GreetingResource {
     @GET
     @Path("/producto/{codigo}/")
     @Produces({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"ADMIN","OPERADOR"})
     public Producto productoByCodigo(@PathParam("codigo") String codigo) {
         Optional<Producto> optional = Producto.findByIdOptional(codigo);
         return optional.orElseThrow(NotFoundException::new);
@@ -69,6 +74,7 @@ public class GreetingResource {
     @GET
     @Path("/cliente/{codigo}/")
     @Produces({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"ADMIN","OPERADOR"})
     public Cliente clienteByCodigo(@PathParam("codigo") String codigo) {
         Optional<Cliente> optional = Cliente.findByIdOptional(codigo);
         return optional.orElseThrow(NotFoundException::new);

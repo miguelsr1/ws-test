@@ -1,4 +1,4 @@
-package sv.com.jsoft.ws.efact;
+package sv.com.jsoft.ws.test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

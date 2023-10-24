@@ -1,17 +1,15 @@
-package sv.com.jsoft.ws.efact.rest;
+package sv.com.jsoft.ws.test.rest;
 
 import io.quarkus.logging.Log;
-import jakarta.inject.Inject;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.exception.ConstraintViolationException;
-import sv.com.jsoft.ws.efact.model.Cliente;
-import sv.com.jsoft.ws.efact.model.Producto;
-import sv.com.jsoft.ws.efact.model.TipoUnidadMedida;
-import sv.com.jsoft.ws.efact.model.dto.ResponseDto;
-import sv.com.jsoft.ws.efact.repository.ClienteRepository;
+import sv.com.jsoft.ws.test.model.Producto;
+import sv.com.jsoft.ws.test.model.TipoUnidadMedida;
+import sv.com.jsoft.ws.test.model.dto.ResponseDto;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class ItemResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "OPERADOR"})
     public List<TipoUnidadMedida> findAll(){
         return TipoUnidadMedida.listAll();
     }
@@ -27,6 +26,7 @@ public class ItemResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("ADMIN")
     public Response save(Producto producto){
         ResponseDto responseDto = new ResponseDto();
         try{
@@ -45,6 +45,7 @@ public class ItemResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("ADMIN")
     public Response update(@PathParam("id") Integer id, Producto producto){
         ResponseDto responseDto = new ResponseDto();
         try{

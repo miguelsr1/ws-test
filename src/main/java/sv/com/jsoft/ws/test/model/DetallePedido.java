@@ -1,4 +1,4 @@
-package sv.com.jsoft.ws.efact.model;
+package sv.com.jsoft.ws.test.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
